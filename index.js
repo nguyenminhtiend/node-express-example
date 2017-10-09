@@ -1,18 +1,16 @@
 var express = require('express');
 var app = express();
-var bodyParser  = require('body-parser');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
 global.config = require('./config');
 
-var jwt    = require('jsonwebtoken');
+app.set('port', (process.env.PORT || 3000));
 
 app.use(bodyParser.json());
-
-app.get('/', function(req, res){
-    res.send('hello world');
-});
+app.use(logger('dev'));
 
 app.use(require('./controllers'));
 
-app.listen(3000, function(){
+app.listen(app.get('port'), function () {
     console.log('App running on 3000');
 });
