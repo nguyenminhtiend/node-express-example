@@ -1,7 +1,7 @@
 module.exports = {
     jwt_secret: "shhh",
     db: {
-        dev: {
+        development: {
             host: '127.0.0.1',
             user: 'postgres',
             password: 'Password.123',
@@ -17,7 +17,7 @@ module.exports = {
             port: '5432',
             dialect: 'postgres'
         },
-        prod: {
+        production: {
             host: '127.0.0.1',
             user: 'postgres',
             password: 'Password.123',
