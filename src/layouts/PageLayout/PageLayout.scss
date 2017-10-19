@@ -6,3 +6,22 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+.header {
+    height: 71px;
+    background: #00cdef; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#00cdef, #009fda); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#00cdef, #009fda); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#00cdef, #009fda); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#00cdef, #009fda);
+    margin-bottom: 60px;
+
+    .header-title {
+        font-size: 36px;
+        color: white;
+    }
+}
+
+button {
+    cursor: pointer;
+}
