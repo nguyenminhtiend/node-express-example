@@ -1,11 +1,10 @@
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
-
 import axiosClient from '../../../utils/axiosClient';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 export function handleLogin(loginData, successCallback) {
     return (dispatch) => {
-        const url = 'admin/token';
+        const url = '/admin/token';
         dispatch(login(url, loginData, successCallback));
     }
 }
@@ -65,8 +64,7 @@ const initialState = {
     errorMessage: ''
 };
 
-export default function counterReducer(state = initialState, action) {
-    const handler = actionsMap[action.type]
-
-    return handler ? handler(state, action) : state
+export default function loginReducer(state = initialState, action) {
+    const handler = actionsMap[action.type];
+    return handler ? handler(state, action) : state;
 }

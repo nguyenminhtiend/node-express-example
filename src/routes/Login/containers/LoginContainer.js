@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {handleLogin} from '../modules/login';
@@ -31,7 +30,7 @@ class LoginContainer extends React.Component {
     login = () => {
         const {handleLogin} = this.props;
         let successFunc = () => {
-            this.props.router.push('/counter');
+            this.props.router.push('/feedback');
         };
         handleLogin(this.state.loginData, successFunc);
     }
@@ -40,35 +39,37 @@ class LoginContainer extends React.Component {
         const {loginData} = this.state;
         const {errorMessage} = this.props.login;
         return (
-            <div className="col-md-4 offset-md-4">
-                <div className="form-body">
-                    <div className="form-group">
-                        <label className="control-label">Username:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            placeholder="Username"
-                            value={loginData.username}
-                            onChange={value => { this.handleChange('username', value); }}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="password"
-                            value={loginData.password}
-                            onChange={value => { this.handleChange('password', value); }}
-                        />
-                    </div>
-                    {errorMessage &&
-                    <div className="alert alert-danger" role="alert">{errorMessage}</div>
-                    }
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block" onClick={this.login}>Login</button>
+            <div className="row">
+                <div className="col-md-4 offset-md-4">
+                    <div className="form-body">
+                        <div className="form-group">
+                            <label className="control-label">Username:</label>
+                            <input
+                                type="text"
+                                name="name"
+                                className="form-control"
+                                placeholder="Username"
+                                value={loginData.username}
+                                onChange={value => { this.handleChange('username', value); }}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label">Password:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                className="form-control"
+                                placeholder="password"
+                                value={loginData.password}
+                                onChange={value => { this.handleChange('password', value); }}
+                            />
+                        </div>
+                        {errorMessage &&
+                        <div className="alert alert-danger" role="alert">{errorMessage}</div>
+                        }
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary btn-block" onClick={this.login}>Login</button>
+                        </div>
                     </div>
                 </div>
             </div>

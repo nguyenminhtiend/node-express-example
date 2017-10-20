@@ -1,76 +1,52 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {handleLogin} from '../modules/login';
-import { withRouter } from 'react-router';
-import './login.scss';
+import {withRouter} from 'react-router';
+import {getFeedbacks} from "../modules/feedback";
+import './feedback.scss';
 
-const initialState = {
-    loginData: {
-        username: '',
-        password: ''
-    }
-}
+const initialState = {};
 
 class LoginContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = initialState;
-
-        this.login = this.login.bind(this);
     }
 
-    handleChange(key, event) {
-        let loginData = { ...this.state.loginData };
-        loginData[key] = event.target.value;
-        this.setState({ loginData });
-    }
-
-    login = () => {
-        const {handleLogin} = this.props;
-        let successFunc = () => {
-            this.props.router.push('/counter');
-        };
-        handleLogin(this.state.loginData, successFunc);
+    componentWillMount() {
+        const {getFeedbacks} = this.props;
+        getFeedbacks();
     }
 
     render() {
-        const {loginData} = this.state;
-        const {errorMessage} = this.props.login;
+        const {feedbacks} = this.props.feedback;
         return (
-            <div className="col-md-4 offset-md-4">
-                <div className="form-body">
-                    <div className="form-group">
-                        <label className="control-label">Username:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            placeholder="Username"
-                            value={loginData.username}
-                            onChange={value => { this.handleChange('username', value); }}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="password"
-                            value={loginData.password}
-                            onChange={value => { this.handleChange('password', value); }}
-                        />
-                    </div>
-                    {errorMessage &&
-                    <div className="alert alert-danger" role="alert">{errorMessage}</div>
-                    }
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block" onClick={this.login}>Login</button>
-                    </div>
-                </div>
+            <div>
+                <table className="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Feedback Type</th>
+                        <th>Description</th>
+                        <th>Answer</th>
+                        <th>Meeting Id</th>
+                        <th>User Id</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {feedbacks.map(function(feedback, index) {
+                        return <tr key={index}>
+                            <th scope="row">{feedback.id}</th>
+                            <td>{feedback.feedback_type}</td>
+                            <td>{feedback.description}</td>
+                            <td>@{feedback.answer}</td>
+                            <td>{feedback.meeting_id}</td>
+                            <td>{feedback.user_id}</td>
+                        </tr>
+                    })}
+                    </tbody>
+                </table>
             </div>
         );
     }
@@ -78,14 +54,13 @@ class LoginContainer extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleLogin: bindActionCreators(handleLogin, dispatch)
+        getFeedbacks: bindActionCreators(getFeedbacks, dispatch)
     };
 }
 
 const mapStateToProps = (state) => ({
-  login : state.login
+    feedback: state.feedback
 });
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginContainer));
