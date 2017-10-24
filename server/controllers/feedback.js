@@ -35,7 +35,6 @@ router.post('/', (req, res) => {
             });
         });
 
-
         FeedBack.bulkCreate(feedbacks).then(() => {
             res.sendStatus(201);
         }).catch((err) => {

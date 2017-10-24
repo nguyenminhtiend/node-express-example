@@ -2,11 +2,19 @@ const express = require('express');
 const router = express.Router();
 const Meeting = require('../models/meeting');
 
+router.get('/getAll', (req, res) => {
+    Meeting.findAll().then((meetings) => {
+        res.json(meetings);
+    });
+});
+
 router.get('/:id', (req, res) => {
     Meeting.findOne({where: {id: req.params.id}}).then(meeting => {
         res.json(meeting);
     })
 });
+
+
 
 router.post('/', (req, res) => {
     let newMeeting = {
